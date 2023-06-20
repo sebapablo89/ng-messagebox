@@ -3,5 +3,132 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "ng-messagebox": {
+      "projectType": "library",
+      "root": "projects/ng-messagebox",
+      "sourceRoot": "projects/ng-messagebox/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ng-messagebox/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-messagebox/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ng-messagebox/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/ng-messagebox/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "PruebaWeb": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/prueba-web",
+      "sourceRoot": "projects/prueba-web/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/prueba-web",
+            "index": "projects/prueba-web/src/index.html",
+            "main": "projects/prueba-web/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/prueba-web/tsconfig.app.json",
+            "assets": [
+              "projects/prueba-web/src/favicon.ico",
+              "projects/prueba-web/src/assets"
+            ],
+            "styles": [
+              "projects/prueba-web/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "PruebaWeb:build:production"
+            },
+            "development": {
+              "browserTarget": "PruebaWeb:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "PruebaWeb:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/prueba-web/tsconfig.spec.json",
+            "assets": [
+              "projects/prueba-web/src/favicon.ico",
+              "projects/prueba-web/src/assets"
+            ],
+            "styles": [
+              "projects/prueba-web/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "c74baf62-08d6-4b80-b928-55e428b91d2f"
   }
 }
